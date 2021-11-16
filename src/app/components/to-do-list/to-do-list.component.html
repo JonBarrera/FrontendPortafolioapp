@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <form #bookForm="ngForm" (ngSubmit)="addBook(bookForm)">
+
+                    <input type="hidden" name="_id" [(ngModel)]="bookService.selectedBook._id">
+
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="title" placeholder="Enter title of book" [(ngModel)]="bookService.selectedBook.title">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control" name="author" placeholder="Enter its author" [(ngModel)]="bookService.selectedBook.author">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="isbn" placeholder="Enter its idbn" [(ngModel)]="bookService.selectedBook.isbn">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control" name="price" placeholder="Enter its price" [(ngModel)]="bookService.selectedBook.price">
+                    </div>
+                    <button class="btn btn-primary btnClear" type="reset"><i class="fas fa-broom" (click)="(resetForm(bookForm))"></i></button>
+                    <button class="btn btn-success"><i class="far fa-save"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-6">
+        <div class="searchText">
+            <form class="d-flex">
+                <input class="form-control me-1" type="search" placeholder="Search" [(ngModel)]="searchText" [ngModelOptions]="{standalone:true}" aria-label="Search">
+            </form>
+        </div>
+        <div class="table-responsive-md">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Titulo</th>
+                        <th scope="col">Autor</th>
+                        <th scope="col">Isbn</th>
+                        <th scope="col">Precio</th>
+                        <th scope="col">Editar</th>
+                        <th class="col">Borrar</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let book of bookService.books | filter:searchText | paginate:{itemsPerPage: 3, currentPage: pageActual}; let i = index">
+                        <th scope="row">{{i + 1}}</th>
+                        <td>{{book.title}}</td>
+                        <td>{{book.author}}</td>
+                        <td>{{book.isbn}}</td>
+                        <td>{{book.price}}</td>
+                        <td><button class="btn btn-info"><i class="fas fa-edit" (click)="editBook(book)"></i></button></td>
+                        <td><button class="btn btn-danger" (click)="deleteBook(book._id)"><i class="fas fa-trash-alt"></i></button></td>
+                    </tr>
+                    <tr *ngIf="(bookService.books==null) || (bookService.books.length == 0)">
+                        <td colspan="7">
+                            <h6>No categories!</h6>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <pagination-controls (pageChange)="pageActual =$event"></pagination-controls>
+        </div>
+    </div>
+</div>

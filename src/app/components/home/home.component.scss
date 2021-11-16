@@ -1,0 +1,17 @@
+.top-content .carousel-item {
+    height: 100vh;
+    min-height: 400px;
+}
+ 
+.top-content .carousel-item img {
+    height: 100%;
+    object-fit: cover;
+}
+
+@media (max-width: 575px) {
+ 
+    .top-content .carousel-item {
+        max-height: 400px;
+    }
+ 
+}
