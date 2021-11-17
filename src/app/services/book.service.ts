@@ -7,7 +7,7 @@ import { Book } from "../models/taskBook";
 })
 export class BookService {
 
-  URL_API = 'https://apiportafolioserver.herokuapp.com/api/books'
+  URL_API = 'https://app-portafolio-api.herokuapp.com/api/books'
 
   selectedBook: Book = {
     title: '',
